@@ -1,7 +1,7 @@
 import React from 'react'
 import ProjectList from './components/Projects'
 import PagesList from './components/Pages'
-import ButtonClose from './components/ButtonClose'
+import CloseButton from './components/CloseButton.jsx'
 import List from './components/List'
 import REACT_API_KEY from './assets/apiKey.js'
 
@@ -43,7 +43,7 @@ function App() {
       });
   }
 
-  function exitcreateListMode() {
+  function exitCreateListMode() {
     newList.current = {}
 
     setCreateListMode(prevItem => {
@@ -102,7 +102,7 @@ function App() {
         <h3>Create List</h3>
         <p>Please choose list's title from the list of projects:</p>
          <ProjectList onFormSubmit={showPagesList} data={createListMode.projects}/> 
-         <ButtonClose handleClick={exitcreateListMode} />
+         <CloseButton handleClick={exitCreateListMode} />
         
       </div>}
 
@@ -114,7 +114,7 @@ function App() {
             handleClick={showPagesList} 
             data={createListMode.pages} 
             onFormSubmit={createNewList}/> 
-         <ButtonClose handleClick={exitcreateListMode} />
+         <CloseButton handleClick={exitCreateListMode} />
       </div>}
 
       <div id="lists" className='lists'>

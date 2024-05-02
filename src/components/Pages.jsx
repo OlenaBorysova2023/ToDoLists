@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function PagesList(props) {
-    const allPagesData = getAllChildrenPages(props.data);
+    const allPagesData = getAllPagesData(props.data, []);
     const initFormState = setInitState(); 
 
     const [formState, setFormState] = React.useState(initFormState)
@@ -20,30 +20,16 @@ export default function PagesList(props) {
         </li>
     );
 
-    function getAllChildrenPages(data) {
-        const flatPagesData = []
-            
-        if (data?.children.length) {
-            let childrenPages = data.children 
-
-            do {
-                let nextGeneration = []
-
-                childrenPages.forEach(item => {
-                    if(item?.id && item?.name) flatPagesData.push(item)  
-                    
-                    if (item.children?.length) {
-                        nextGeneration.push([...item.children])   
-                    }
-                })
-                childrenPages = [...nextGeneration]
-    
-            } while (childrenPages?.length)
-        }
-
-        return flatPagesData
-    }   
-
+    function getAllPagesData(root, nodes) {
+        if(root.type = "PAGE" && root.id && root.name) {
+            nodes.push({id: root.id, name: root.name});
+        }    
+        (root.children || []).forEach(node => {
+            getAllPagesData(node, nodes);
+        });    
+        return nodes;
+    }
+       
     function setInitState() {
         const initValue = {}
 
